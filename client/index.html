@@ -1,0 +1,20 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>LumaGlow CEP</title><link rel="stylesheet" href="styles.css"></head>
+<body><main class="app">
+  <header class="topbar"><div class="mark">✦</div><div><div class="eyebrow">PHOTOSHOP EXTENSION</div><h1>LumaGlow <small>CEP</small></h1></div><span class="version">01</span></header>
+  <section class="hero"><div class="hero-grid"></div><div class="orb" id="orb"><span>✦</span></div><div class="hero-caption"><span class="live-dot"></span> LIVE EDITING <span class="hero-note">in your document</span></div></section>
+  <div class="source-row"><div><div class="eyebrow">SOURCE</div><div id="sourceName" class="source-name">Select a layer</div></div><button id="refreshBtn" class="icon-btn" title="Refresh from the source">↻</button></div>
+  <section class="card"><div class="section-head"><h2>Light</h2><span class="section-index">01 / 02</span></div>
+    <div class="control"><div class="control-head"><label for="radius">Radius</label><output id="radiusValue"></output></div><input id="radius" type="range" min="2" max="180" value="42"></div>
+    <div class="control"><div class="control-head"><label for="intensity">Intensity</label><output id="intensityValue"></output></div><input id="intensity" type="range" min="0" max="300" value="120"></div>
+    <div class="control"><div class="control-head"><label for="threshold">Threshold</label><output id="thresholdValue"></output></div><input id="threshold" type="range" min="0" max="95" value="55"></div>
+    <div class="control last"><div class="control-head"><label for="spread">Spread</label><output id="spreadValue"></output></div><input id="spread" type="range" min="0" max="100" value="50"></div>
+  </section>
+  <section class="card color-card"><div class="section-head"><h2>Color</h2><span class="section-index">02 / 02</span></div>
+    <div class="color-row"><label for="color">Glow tint</label><div class="color-choice"><span id="colorSwatch" class="color-swatch"></span><input id="color" type="text" value="#AA8DFF" maxlength="7" aria-label="Glow tint hex color"></div></div>
+    <div class="swatches" aria-label="Tint presets"><button class="swatch" style="background:#aa8dff" title="Violet"></button><button class="swatch" style="background:#54d9ff" title="Cyan"></button><button class="swatch" style="background:#ffad72" title="Amber"></button><button class="swatch" style="background:#ff76aa" title="Pink"></button><button class="swatch" style="background:#f9f8e9" title="Soft white"></button></div>
+    <div class="control last"><div class="control-head"><label for="tint">Tint mix</label><output id="tintValue"></output></div><input id="tint" type="range" min="0" max="100" value="75"></div>
+  </section>
+  <div class="actions"><button id="applyBtn" class="primary">Create glow <span>↗</span></button><button id="resetBtn" class="secondary">Reset</button></div>
+  <p id="status" class="status" role="status">Select a layer, then create its glow.</p><p class="footnote">Select a LumaGlow group to edit it again. Refresh after changing source pixels.</p>
+</main><script src="panel.js"></script></body></html>
