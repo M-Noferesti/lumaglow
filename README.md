@@ -3,7 +3,7 @@
 
   <h1>LumaGlow</h1>
   <p><strong>Shape the light. Keep the source.</strong></p>
-  <p>A Photoshop CEP panel for layered glow with live, editable controls.</p>
+  <p>Layered glow for Photoshop with live, editable controls.</p>
 </div>
 
 ---
