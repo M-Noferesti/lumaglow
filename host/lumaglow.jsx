@@ -52,7 +52,7 @@ LumaGlowCEP.apply = function (radius, intensity, threshold, spread, tint, color)
         for (var i = 0; i < values.length; i++) if (isNaN(values[i]) || !isFinite(values[i])) throw new Error('Invalid control value.');
         if (radius < 2 || radius > 180 || intensity < 0 || intensity > 300 || threshold < 0 || threshold > 95 || spread < 0 || spread > 100 || tint < 0 || tint > 100 || !/^[0-9a-fA-F]{6}$/.test(color)) throw new Error('A control value is outside its range.');
         var doc = app.activeDocument;
-        if (doc.mode !== DocumentMode.RGB) throw new Error('LumaGlow CEP requires an RGB document.');
+        if (doc.mode !== DocumentMode.RGB) throw new Error('LumaGlow requires an RGB document.');
         var selected = doc.activeLayer;
         var oldGroup = selected.typename === 'LayerSet' && LumaGlowCEP.meta(selected.name) ? selected : null;
         var sourceId = oldGroup ? LumaGlowCEP.meta(oldGroup.name).sourceId : LumaGlowCEP.selectedId();
@@ -61,7 +61,7 @@ LumaGlowCEP.apply = function (radius, intensity, threshold, spread, tint, color)
         if (source.isBackgroundLayer) throw new Error('Convert the Background to a normal layer first.');
         LumaGlowCEP.request = { doc: doc, sourceId: sourceId, oldGroup: oldGroup, radius: Math.round(radius), intensity: Math.round(intensity), threshold: Math.round(threshold), spread: Math.round(spread), tint: Math.round(tint), color: color.toLowerCase() };
         LumaGlowCEP.result = '';
-        doc.suspendHistory(oldGroup ? 'Update LumaGlow CEP' : 'Create LumaGlow CEP', 'LumaGlowCEP.commit()');
+        doc.suspendHistory(oldGroup ? 'Update LumaGlow' : 'Create LumaGlow', 'LumaGlowCEP.commit()');
         return LumaGlowCEP.result || 'error|No result from Photoshop.';
     } catch (error) {
         return 'error|' + encodeURIComponent(error.message || String(error));

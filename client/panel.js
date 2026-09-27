@@ -7,7 +7,7 @@
   function copy(x) { var y = {}; for (var k in x) if (x.hasOwnProperty(k)) y[k] = x[k]; return y; }
   function setStatus(message, error) { status.textContent = message; status.className = error ? 'status error' : 'status'; }
   function host(script, callback) {
-    if (!window.__adobe_cep__ || !window.__adobe_cep__.evalScript) { callback('error|CEP bridge unavailable. Open this panel in Photoshop.'); return; }
+    if (!window.__adobe_cep__ || !window.__adobe_cep__.evalScript) { callback('error|Photoshop bridge unavailable. Open this panel in Photoshop.'); return; }
     window.__adobe_cep__.evalScript(script, callback);
   }
   function draw() {

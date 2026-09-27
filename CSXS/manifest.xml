@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<ExtensionManifest Version="7.0" ExtensionBundleId="com.codex.lumaglow.cep" ExtensionBundleVersion="1.0.0" ExtensionBundleName="LumaGlow CEP" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
-  <ExtensionList><Extension Id="com.codex.lumaglow.cep.panel" Version="1.0.0"/></ExtensionList>
+<ExtensionManifest Version="7.0" ExtensionBundleId="com.codex.lumaglow.cep" ExtensionBundleVersion="1.0.1" ExtensionBundleName="LumaGlow" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <ExtensionList><Extension Id="com.codex.lumaglow.cep.panel" Version="1.0.1"/></ExtensionList>
   <ExecutionEnvironment>
     <HostList><Host Name="PHXS" Version="[22.0,99.9]"/></HostList>
     <LocaleList><Locale Code="All"/></LocaleList>
@@ -14,7 +14,7 @@
           <ScriptPath>./host/lumaglow.jsx</ScriptPath>
         </Resources>
         <Lifecycle><AutoVisible>true</AutoVisible></Lifecycle>
-        <UI><Type>Panel</Type><Menu>LumaGlow CEP</Menu><Geometry><Size><Width>340</Width><Height>700</Height></Size><MinSize><Width>290</Width><Height>420</Height></MinSize></Geometry></UI>
+        <UI><Type>Panel</Type><Menu>LumaGlow</Menu><Geometry><Size><Width>340</Width><Height>700</Height></Size><MinSize><Width>290</Width><Height>420</Height></MinSize></Geometry></UI>
       </DispatchInfo>
     </Extension>
   </DispatchInfoList>

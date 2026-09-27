@@ -1,7 +1,7 @@
 <div align="center">
-  <img src="assets/preview.svg" alt="Illustrated preview of LumaGlow CEP and its glow controls" width="100%" />
+  <img src="assets/preview.svg" alt="Illustrated preview of LumaGlow and its glow controls" width="100%" />
 
-  <h1>LumaGlow CEP</h1>
+  <h1>LumaGlow</h1>
   <p><strong>Shape the light. Keep the source.</strong></p>
   <p>A Photoshop CEP panel for layered glow with live, editable controls.</p>
 </div>
@@ -19,7 +19,7 @@
 ## Get started
 
 1. Open an **RGB document** in Photoshop and select a pixel, text, shape, or smart object layer. Convert a Background layer to a normal layer first.
-2. Open **Window → Extensions (Legacy) → LumaGlow CEP**.
+2. Open **Window → Extensions (Legacy) → LumaGlow**.
 3. Click **Create glow**. Move a slider or choose a tint; the generated group updates after a short pause.
 4. Select the **LumaGlow group** later to restore its controls. Click **Refresh** after changing the source pixels.
 
@@ -33,7 +33,7 @@ This repository contains an **unsigned development extension**, not a signed `.z
 
 1. Clone or download this repository.
 2. Run [`install-windows.ps1`](install-windows.ps1) with PowerShell.
-3. Restart Photoshop, then open **Window → Extensions (Legacy) → LumaGlow CEP**.
+3. Restart Photoshop, then open **Window → Extensions (Legacy) → LumaGlow**.
 
 For a manual install, copy this folder to `%APPDATA%\Adobe\CEP\extensions\`. Set the **String Value** `PlayerDebugMode` to `1` at `HKEY_CURRENT_USER\Software\Adobe\CSXS.12` for Photoshop versions using CEP 12 (25.12 and newer). Photoshop versions using CEP 11 use `CSXS.11` instead. See [Adobe's CEP resources](https://github.com/Adobe-CEP/CEP-Resources) for the development workflow.
 
