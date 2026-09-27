@@ -21,7 +21,7 @@
     <g transform="translate(60 512)" fill="#d6cbec" font-size="13" font-weight="700">
       <rect width="143" height="44" rx="12" fill="#29253a" stroke="#4a4060"/><text x="17" y="27">✦  3 blur passes</text>
       <rect x="154" width="140" height="44" rx="12" fill="#29253a" stroke="#4a4060"/><text x="171" y="27">◉  Live controls</text>
-      <rect x="305" width="136" height="44" rx="12" fill="#29253a" stroke="#4a4060"/><text x="322" y="27">◇  Source safe</text>
+      <rect x="305" width="136" height="44" rx="12" fill="#29253a" stroke="#4a4060"/><text x="322" y="27">◇  Tidy layers</text>
     </g>
   </g>
   <circle cx="570" cy="378" r="118" fill="#ad8aff" opacity=".35" filter="url(#blur)"/>
@@ -38,7 +38,7 @@
     <text x="830" y="232" fill="#8d899d" font-size="9" font-weight="700" letter-spacing="1.3">SOURCE</text>
     <text x="830" y="251" fill="#ece6f7" font-size="13" font-weight="700">Neon artwork</text>
     <rect x="830" y="267" width="294" height="205" rx="12" fill="#252330" stroke="#423d4f"/>
-    <text x="846" y="292" fill="#f1eaf9" font-size="13" font-weight="700">Light</text><text x="1081" y="292" fill="#817d90" font-size="10">01 / 02</text>
+    <text x="846" y="292" fill="#f1eaf9" font-size="13" font-weight="700">Light</text><text x="1081" y="292" fill="#817d90" font-size="10">01 / 03</text>
     <g fill="#c5becf" font-size="11"><text x="846" y="320">Radius</text><text x="846" y="360">Intensity</text><text x="846" y="400">Threshold</text><text x="846" y="440">Spread</text></g>
     <g fill="#c6aaff" font-size="11" text-anchor="end"><text x="1108" y="320">42 px</text><text x="1108" y="360">120%</text><text x="1108" y="400">55%</text><text x="1108" y="440">50%</text></g>
     <g stroke="#4f495f" stroke-width="4" stroke-linecap="round"><path d="M846 335h261M846 375h261M846 415h261M846 455h261"/></g>

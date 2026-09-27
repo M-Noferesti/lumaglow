@@ -29,15 +29,34 @@ LumaGlowCEP.nameFor = function (source, sourceId, request) {
     var packed = [sourceId, request.radius, request.intensity, request.threshold, request.spread, request.tint, request.color].join(',');
     return 'LumaGlow - ' + safeName + ' [LG:' + packed + ']';
 };
+LumaGlowCEP.findGlowGroup = function (container, sourceId) {
+    for (var i = 0; i < container.layerSets.length; i++) {
+        var group = container.layerSets[i], meta = LumaGlowCEP.meta(group.name);
+        if (meta && meta.sourceId === sourceId) return group;
+        var nested = LumaGlowCEP.findGlowGroup(group, sourceId);
+        if (nested) return nested;
+    }
+    return null;
+};
+LumaGlowCEP.context = function (doc) {
+    var selected = doc.activeLayer, group = null, sourceId;
+    if (selected.typename === 'LayerSet' && LumaGlowCEP.meta(selected.name)) group = selected;
+    else if (selected.parent && selected.parent.typename === 'LayerSet' && LumaGlowCEP.meta(selected.parent.name)) group = selected.parent;
+    if (group) sourceId = LumaGlowCEP.meta(group.name).sourceId;
+    else {
+        sourceId = LumaGlowCEP.selectedId();
+        if (selected.typename === 'ArtLayer') group = LumaGlowCEP.findGlowGroup(doc, sourceId);
+    }
+    return { sourceId: sourceId, group: group };
+};
 LumaGlowCEP.inspect = function () {
     try {
         if (!app.documents.length) return 'none';
         var doc = app.activeDocument, selected = doc.activeLayer;
-        var selectedId = LumaGlowCEP.selectedId();
-        var meta = selected.typename === 'LayerSet' ? LumaGlowCEP.meta(selected.name) : null;
-        if (meta) {
-            var sourceName = selected.name.replace(/^LumaGlow - /, '').replace(/ \[LG:[^\]]+\]$/, '');
-            return 'edit|' + encodeURIComponent(sourceName) + '|' + meta.values + '|' + selectedId;
+        var selectedId = LumaGlowCEP.selectedId(), context = LumaGlowCEP.context(doc);
+        if (context.group) {
+            var sourceName = selected.typename === 'ArtLayer' && selectedId === context.sourceId ? selected.name : context.group.name.replace(/^LumaGlow - /, '').replace(/ \[LG:[^\]]+\]$/, '');
+            return 'edit|' + encodeURIComponent(sourceName) + '|' + LumaGlowCEP.meta(context.group.name).values + '|' + selectedId + '|' + (context.group.visible ? '1' : '0');
         }
         return 'new|' + encodeURIComponent(selected.name) + '||' + selectedId;
     } catch (error) {
@@ -53,9 +72,7 @@ LumaGlowCEP.apply = function (radius, intensity, threshold, spread, tint, color)
         if (radius < 2 || radius > 180 || intensity < 0 || intensity > 300 || threshold < 0 || threshold > 95 || spread < 0 || spread > 100 || tint < 0 || tint > 100 || !/^[0-9a-fA-F]{6}$/.test(color)) throw new Error('A control value is outside its range.');
         var doc = app.activeDocument;
         if (doc.mode !== DocumentMode.RGB) throw new Error('LumaGlow requires an RGB document.');
-        var selected = doc.activeLayer;
-        var oldGroup = selected.typename === 'LayerSet' && LumaGlowCEP.meta(selected.name) ? selected : null;
-        var sourceId = oldGroup ? LumaGlowCEP.meta(oldGroup.name).sourceId : LumaGlowCEP.selectedId();
+        var context = LumaGlowCEP.context(doc), oldGroup = context.group, sourceId = context.sourceId;
         var source = LumaGlowCEP.selectId(sourceId);
         if (source.typename !== 'ArtLayer') throw new Error('Select a pixel, text, shape, or smart object layer.');
         if (source.isBackgroundLayer) throw new Error('Convert the Background to a normal layer first.');
@@ -66,6 +83,22 @@ LumaGlowCEP.apply = function (radius, intensity, threshold, spread, tint, color)
     } catch (error) {
         return 'error|' + encodeURIComponent(error.message || String(error));
     }
+};
+LumaGlowCEP.toggleVisibility = function () {
+    try {
+        if (!app.documents.length) throw new Error('Open a Photoshop document first.');
+        var context = LumaGlowCEP.context(app.activeDocument);
+        if (!context.group) throw new Error('Select a source layer or its LumaGlow group.');
+        context.group.visible = !context.group.visible;
+        return 'ok|' + (context.group.visible ? '1' : '0');
+    } catch (error) { return 'error|' + encodeURIComponent(error.message || String(error)); }
+};
+LumaGlowCEP.compactLayers = function () {
+    try {
+        if (!app.documents.length) throw new Error('Open a Photoshop document first.');
+        executeAction(stringIDToTypeID('collapseAllGroupsEvent'), new ActionDescriptor(), DialogModes.NO);
+        return 'ok|Folders collapsed.';
+    } catch (error) { return 'error|' + encodeURIComponent(error.message || String(error)); }
 };
 LumaGlowCEP.makePass = function (source, group, title, radius, opacity, request, filterColor) {
     if (opacity <= 0) return;
@@ -101,6 +134,7 @@ LumaGlowCEP.commit = function () {
         LumaGlowCEP.makePass(source, group, 'Halo', request.radius * 0.7, 60 * strength, request, filterColor);
         LumaGlowCEP.makePass(source, group, 'Atmosphere', request.radius * 1.55, 55 * strength * (0.35 + spread), request, filterColor);
         group.name = LumaGlowCEP.nameFor(source, request.sourceId, request);
+        if (request.oldGroup) group.visible = request.oldGroup.visible;
         if (request.oldGroup) request.oldGroup.remove();
         doc.activeLayer = group;
         LumaGlowCEP.result = 'ok|' + encodeURIComponent(group.name);

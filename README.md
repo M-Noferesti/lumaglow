@@ -21,7 +21,8 @@
 1. Open an **RGB document** in Photoshop and select a pixel, text, shape, or smart object layer. Convert a Background layer to a normal layer first.
 2. Open **Window → Extensions (Legacy) → LumaGlow**.
 3. Click **Create glow**. Move a slider or choose a tint; the generated group updates after a short pause.
-4. Select the **LumaGlow group** later to restore its controls. Click **Refresh** after changing the source pixels.
+4. Select the source layer or its **LumaGlow group** later to restore its controls. Click **Refresh** after changing the source pixels.
+5. Use **Hide glow / Show glow** to toggle the effect without deleting it. Use **Collapse all folders** to tidy the Layers panel while keeping the glow visible.
 
 ```text
 Source layer → highlight threshold → core + halo + atmosphere → Screen blend group
@@ -49,6 +50,8 @@ On macOS, use `~/Library/Application Support/Adobe/CEP/extensions/` and the matc
 | **Spread** | Balance between the tight core and wide atmosphere | 0–100% |
 | **Glow tint** | The hue passed to Photoshop's Photo Filter | Six-digit hex |
 | **Tint mix** | Strength of the Photo Filter color | 0–100% |
+| **Hide glow / Show glow** | Toggle the generated glow group's visibility | On / Off |
+| **Collapse all folders** | Fold every layer group in the active document's Layers panel | Action |
 
 ## How it is built
 
@@ -60,11 +63,12 @@ install-windows.ps1     User-level development install
 assets/preview.svg      README illustration
 ```
 
-The JSX host duplicates the source into a generated group, applies Levels and Gaussian Blur at three scales, adds Photo Filter tint, and sets each pass to Screen. It stores control values in the group name so selecting the group restores the panel state.
+The JSX host duplicates the source into a generated group, applies Levels and Gaussian Blur at three scales, adds Photo Filter tint, and sets each pass to Screen. It stores control values in the group name so selecting the source or its group restores the panel state. Hiding the glow keeps that state and visibility is preserved when controls rebuild the group.
 
 ## Current limits
 
 - Control changes rebuild the generated group. Manual edits inside that group are replaced on the next update.
+- Photoshop's available collapse action folds all groups in the active document, including groups that LumaGlow did not create. It changes panel organization, not layer visibility.
 - The source must be a non-background art layer in an RGB document.
 - This is a layered glow approximation, not a pixel-identical port of another product.
 - The panel and effect have passed source checks, but host behavior has not yet been verified in Photoshop.

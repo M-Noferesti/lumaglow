@@ -3,7 +3,7 @@ $ErrorActionPreference = 'Stop'
 $manifestPath = Join-Path $PSScriptRoot 'CSXS\manifest.xml'
 if (-not (Test-Path -LiteralPath $manifestPath)) { throw 'Run this script from the extracted LumaGlow folder.' }
 $extensionsPath = Join-Path $env:APPDATA 'Adobe\CEP\extensions'
-$targetPath = Join-Path $extensionsPath 'com.codex.lumaglow.cep'
+$targetPath = Join-Path $extensionsPath 'LumaGlow'
 New-Item -ItemType Directory -Path $targetPath -Force | Out-Null
 Get-ChildItem -LiteralPath $PSScriptRoot -Force | ForEach-Object {
     Copy-Item -LiteralPath $_.FullName -Destination $targetPath -Recurse -Force
